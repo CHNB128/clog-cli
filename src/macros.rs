@@ -6,13 +6,6 @@ macro_rules! wlnerr(
     })
 );
 
-macro_rules! werr(
-    ($($arg:tt)*) => ({
-        use std::io::{Write, stderr};
-        write!(&mut stderr(), $($arg)*).ok();
-    })
-);
-
 #[cfg(feature = "debug")]
 macro_rules! debugln {
     ($fmt:expr) => (println!(concat!("**DEBUG** ", $fmt)));
@@ -27,12 +20,6 @@ macro_rules! debug {
 
 #[cfg(not(feature = "debug"))]
 macro_rules! debugln {
-    ($fmt:expr) => ();
-    ($fmt:expr, $($arg:tt)*) => ();
-}
-
-#[cfg(not(feature = "debug"))]
-macro_rules! debug {
-    ($fmt:expr) => ();
-    ($fmt:expr, $($arg:tt)*) => ();
+    ($fmt:expr) => {};
+    ($fmt:expr, $($arg:tt)*) => {};
 }
